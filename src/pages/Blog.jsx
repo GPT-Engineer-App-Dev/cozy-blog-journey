@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogCancel, DialogAction } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
 import { useState } from "react";
 
 const Blog = () => {
@@ -16,6 +16,7 @@ const Blog = () => {
     setPosts(posts.filter(post => post.id !== id));
     setDeletePostId(null);
   };
+
   return (
     <div className="container mx-auto p-4">
       <section className="blog-posts">
@@ -41,8 +42,8 @@ const Blog = () => {
                       </DialogDescription>
                     </DialogHeader>
                     <DialogFooter>
-                      <DialogCancel>Cancel</DialogCancel>
-                      <DialogAction onClick={() => handleDelete(post.id)}>Delete</DialogAction>
+                      <Button variant="outline" onClick={() => setDeletePostId(null)}>Cancel</Button>
+                      <Button variant="destructive" onClick={() => handleDelete(post.id)}>Delete</Button>
                     </DialogFooter>
                   </DialogContent>
                 </Dialog>
