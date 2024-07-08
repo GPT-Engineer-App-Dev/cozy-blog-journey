@@ -13,15 +13,6 @@ import { CircleUser, Menu, Package2, FileText } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { navItems } from "../App";
 
-const navItems = [
-  // existing nav items
-  {
-    title: "Add Post",
-    to: "/add-post",
-    icon: <FileText className="h-4 w-4" />,
-  },
-];
-
 const Layout = () => {
   return (
     <div className="flex min-h-screen w-full flex-col">
