@@ -12,14 +12,31 @@ import { cn } from "@/lib/utils";
 import { CircleUser, Menu, Package2, FileText } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { navItems } from "../App";
+import { useEffect, useState } from "react";
+import { Switch } from "@/components/ui/switch";
 
 const Layout = () => {
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const savedMode = localStorage.getItem("darkMode");
+    return savedMode ? JSON.parse(savedMode) : false;
+  });
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    localStorage.setItem("darkMode", JSON.stringify(isDarkMode));
+  }, [isDarkMode]);
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 justify-between">
         <DesktopNav />
         <MobileNav />
         <UserMenu />
+        <DarkModeToggle isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
       </header>
       <main className="flex-grow overflow-auto">
         <Outlet />
@@ -35,6 +52,13 @@ const Layout = () => {
     </div>
   );
 };
+
+const DarkModeToggle = ({ isDarkMode, setIsDarkMode }) => (
+  <div className="flex items-center">
+    <span className="mr-2">Dark Mode</span>
+    <Switch checked={isDarkMode} onCheckedChange={setIsDarkMode} />
+  </div>
+);
 
 const DesktopNav = () => (
   <nav className="hidden md:flex md:items-center md:gap-5 lg:gap-6 text-lg font-medium md:text-sm">
